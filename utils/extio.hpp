@@ -30,16 +30,18 @@ inline std::string strf( const char* format, ... )
   return std::string( tmp );
 }
 
+#define Error( format, ... ) ( Signal_Error( __LINE__, __FILE__, format, ##__VA_ARGS__) )
 
-inline void Error( const char* format, ... ) 
+inline void Signal_Error( int line, const char* file, const char* format, ... ) 
 {
+  fprintf( stderr, "%c[%dm\n", 27, 0  );
   va_list argptr;
-  fprintf( stderr, "%c[%d;%dm[ ERROR ] %c[%dm", 27,1,31,27,0 );
+  fprintf( stderr, "%c[%d;%dm[ERROR] %c[%dm", 27,1,31,27,0 );
   fprintf( stderr, "%c[%d;%dm", 27,0,31 );
   va_start( argptr, format );
   vfprintf( stderr, format, argptr );
   va_end( argptr );
-  fprintf( stderr, "%c[%dm\n", 27, 0  );
+  fprintf( stderr, "%c[%dm\nat %s:%d\n", 27, 0, file, line );
 }
 
 inline int Warning( const char* format, ... ) 
@@ -130,67 +132,6 @@ inline void FscanfCheck( int line, const char *file, FILE *in, const char* forma
 #define SCANF_CHECK(format, ... ) ( ScanfCheck( __LINE__, __FILE__, format, ##__VA_ARGS__ ) )
 #define FSCANF_CHECK(format, ... ) ( FscanfCheck( __LINE__, __FILE__, format, ##__VA_ARGS__ ) )
 
-
-
-/* File Operation Utils */
-inline void PutSignature( FILE *out, uint sigNum, ... ) {
-  if ( !out ) {
-    Error( "PutSignature() failed. Empty file descriptor." );
-    exit( -1 );
-  }
-
-  int s = 891014;
-  fwrite( &s, sizeof(int), 1, out ); // 891014 = indicator for a signature
-  fwrite( &sigNum, sizeof(uint), 1, out ); // the size of signature
-  
-  va_list argptr;
-  va_start( argptr, sigNum );
-  for ( uint i=0; i<sigNum; i++ ) {
-    s = va_arg( argptr, int );
-    fwrite( &s, sizeof(int), 1, out );
-  }
-  va_end( argptr );
-}
-
-inline void CheckSignature_( int line, const char *file, FILE *in, uint sigNum, ... ) {
-  if ( !in ) {
-    Error( "CheckSignature() failed. Empty file descriptor." );
-    exit( -1 );
-  }
-  int s = 0;
-  uint t;
-
-  // Check indicator
-  fread( &s, sizeof(int), 1, in );
-  if ( 891014 != s ) {
-    Error( "CheckSignature() failed. Wrong signature indicator. Possible duplicated call to CheckSignature()." );
-    printf( "at %s:%d\n", file, line );
-    exit( -1 );
-  }
-
-  // Check number of signatures
-  fread( &t, sizeof(uint), 1, in );
-  if ( t != sigNum ) {
-    Error( "CheckSignature() failed. Wrong number of signature." );
-    printf( "at %s:%d\n", file, line );
-    exit( -1 );
-  }
-
-  // Check each signature
-  va_list argptr;
-  va_start( argptr, sigNum );
-  for ( uint i=0; i<sigNum; i++ ) {
-    fread( &s, sizeof(int), 1, in );
-    if ( s != va_arg( argptr, int ) ) {
-      Error( "CheckSignature() failed. Signature mismatch." );
-      printf( "at %s:%d\n", file, line );
-      exit( -1 );
-    }
-  }
-  va_end( argptr );
-}
-
-#define CheckSignature(in,sigNum,...) CheckSignature_( __LINE__, __FILE__, in, sigNum, __VA_ARGS__ )
 
 
 
