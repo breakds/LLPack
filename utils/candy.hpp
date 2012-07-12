@@ -8,6 +8,9 @@
 
 #pragma once
 
+// +--------------------------------------------------------------------------------
+// | Get number of variadic function parameters
+// +--------------------------------------------------------------------------------
 // credit given to JophannesD from stackoverflow.com
 int num_args()
 {
@@ -21,6 +24,9 @@ int num_args( H __attribute__((__unused__)) h, T... t )
 }
 
 
+// +--------------------------------------------------------------------------------
+// | Count variadic template parameters
+// +--------------------------------------------------------------------------------
 // credit given to www.jot.fm/issues/issue_2008_02/article2/
 // count the number of variadic template arguments
 template <typename... Args> struct count;
@@ -35,6 +41,13 @@ template <typename T, typename... Rest>
 struct count<T, Rest...> {
   static const int value = 1 + count<Rest...>::value;
 };
+
+
+
+
+
+
+
 
 
 
