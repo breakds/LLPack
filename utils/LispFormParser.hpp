@@ -384,7 +384,11 @@ private:
     {
       return static_cast<int>( lst.size() );
     }
-    
+
+    int size() const
+    {
+      return static_cast<int>( lst.size() );
+    }
 
 
     void Summary( int indent=0 ) const
