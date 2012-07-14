@@ -9,7 +9,9 @@
 #include <functional>
 #include <utility>
 #include <cstdlib>
+#include <cassert>
 #include <vector>
+
 
 using std::vector;
 using std::pair;
@@ -148,6 +150,71 @@ namespace sorting {
 
     // if ascending then do reverse
     return index;
+  }
+
+  // Find the kth smallest element
+  template <typename valueType>
+  inline valueType kth( const vector<valueType>& values, const int k )
+  {
+
+    int p = 0;
+    int q = static_cast<int>( values.size() ) - 1;
+
+    if ( p == q && 0 == k ) return values[0];
+    
+    vector<int> index;
+    index.resize( values.size() );
+    for ( int i=0, end=static_cast<int>( values.size() ); i<end; i++ ) {
+      index[i] = i;
+    }
+    
+    int target = k;
+    while ( p < q ) {
+      
+      int r = rand()%(q-p+1) + p;
+      int tmp = index[r];
+      index[r] = index[q];
+      index[q] = tmp;
+
+      r = p-1;
+      for ( int i=p; i<q; i++ ) {
+        if ( values[index[i]] < values[index[q]] ) {
+          r++;
+          tmp = index[r];
+          index[r] = index[i];
+          index[i] = tmp;
+        }
+      }
+
+      r++;
+      tmp = index[r];
+      index[r] = index[q];
+      index[q] = tmp;
+
+
+      if ( target < r - p ) {
+        q = r - 1;
+      } else if ( target > r-p ) {
+        target = target - r + p -1;
+        p = r + 1;
+      } else {
+        return values[index[r]];
+      }
+      
+    }
+
+    // Should not reach here
+    if ( p==q ) return values[index[p]];
+    
+    assert( false );
+    
+    return values[0];
+  }
+
+  template <typename valueType>
+  inline valueType median( const vector<valueType>& values )
+  {
+    return kth( values, static_cast<int>( values.size() ) >> 1 );
   }
 }
 

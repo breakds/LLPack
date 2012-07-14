@@ -27,5 +27,10 @@ int main()
   for ( int& item : ind ) {
     printf( "%d\n", vals[item] );
   }
+
+  vector<int> c( {5,6,3,4,7,8,1,9,2} );
+  
+  printf( "median is %d\n", sorting::median( c ) );
+  
   return 0;
 }
