@@ -88,7 +88,7 @@ namespace EnvironmentVariable
     int num = num_args( t... );
     fread( &s, sizeof(int), 1, in );
     if ( num != s ) {
-      Error( "unseal() failed due to wrong number of signature entries." );
+      Error( "unseal() failed due to wrong number of signature entries. need: %d, but load: %d.", num, s );
       exit( -1 );
     }
 
