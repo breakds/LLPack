@@ -7,6 +7,7 @@
  *********************************************************************************/
 
 #pragma once
+#include <vector>
 
 // +--------------------------------------------------------------------------------
 // | Get number of variadic function parameters
@@ -41,6 +42,23 @@ template <typename T, typename... Rest>
 struct count<T, Rest...> {
   static const int value = 1 + count<Rest...>::value;
 };
+
+
+// set the parameter to be the length of a vector or nothing
+// template <typename T, typename arrayType>
+// void get_size( const arrayType& a, int& len,
+//                std::enable_if<std::is_same<std::vector<T>,arrayType>::value>::type
+//                __attribute__((__unused__)) *padding = 0 )
+// {
+//   len = static_cast<int>(a);
+// }
+
+// template <typename T, typename arrayType>
+// void get_size( const arrayType& a, int& len,
+//                std::enable_if<!std::is_same<std::vector<T>,arrayType>::value>::type
+//                __attribute__((__unused__)) *padding = 0 )
+// {}
+
 
 
 

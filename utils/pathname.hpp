@@ -17,7 +17,7 @@ namespace path
     vector<string> tmp;
     tmp.resize( filelist.size() );
     for ( int i=0; i<filelist.size(); i++ ) {
-      tmp[i] = folder + "/" + static_cast<string>( filelist[i] ) + "." + postfix;
+      tmp[i] = folder + "/" + static_cast<string>( filelist[i] ) + postfix;
     }
     return tmp;
   }
