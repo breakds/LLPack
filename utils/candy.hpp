@@ -44,6 +44,9 @@ struct count<T, Rest...> {
 };
 
 
+// +--------------------------------------------------------------------------------
+// | Fill a variable with the size of the vector, or do nothing
+// +--------------------------------------------------------------------------------
 // set the parameter to be the length of a vector or nothing
 template <typename T, typename arrayType>
 void get_size( const arrayType& a, int& len,
@@ -58,6 +61,47 @@ void get_size( const arrayType __attribute__((__unused__)) &a, int __attribute__
                typename std::enable_if<!std::is_same<std::vector<T>,arrayType>::value>::type
                __attribute__((__unused__)) *padding = 0 )
 {}
+
+
+
+// +--------------------------------------------------------------------------------
+// | Get the most general numeric type of the input type
+// | i.e. floating point   -> double
+// |      integral number  -> int
+// | Example:
+// |      Generalized<unsigned char>::type
+// +--------------------------------------------------------------------------------
+template <typename T, typename enabled = void>
+class Generalized
+{
+public:
+  typedef void type;
+};
+
+template <typename T>
+class Generalized<T, typename std::enable_if<std::is_integral<T>::value>::type>
+{
+public:
+  typedef int type;
+};
+
+template <typename T>
+class Generalized<T, typename std::enable_if<std::is_floating_point<T>::value>::type>
+{
+public:
+  typedef double type;
+};
+
+  
+
+
+  
+
+
+
+  
+
+
 
 
 
