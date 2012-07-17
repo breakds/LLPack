@@ -54,7 +54,7 @@ void get_size( const arrayType& a, int& len,
 }
 
 template <typename T, typename arrayType>
-void get_size( const arrayType& a, int& len,
+void get_size( const arrayType __attribute__((__unused__)) &a, int __attribute__((__unused__)) &len,
                typename std::enable_if<!std::is_same<std::vector<T>,arrayType>::value>::type
                __attribute__((__unused__)) *padding = 0 )
 {}

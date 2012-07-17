@@ -52,7 +52,8 @@ namespace rndgen
   {
 
     static_assert( std::is_same<std::vector<T>,arrayType>::value ||
-                   std::is_convertible<arrayType,T*>::value,
+                   std::is_convertible<arrayType,T*>::value ||
+                   std::is_convertible<arrayType,const T*>::value,
                    "Not a valid array type. Did you specify the wrong element type?" );
     int n = arrayLen;
     get_size<T>( array, n );
