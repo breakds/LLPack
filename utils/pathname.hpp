@@ -25,4 +25,17 @@ namespace path
     return tmp;
   }
 
+  // Get the file name (without postfix) from the full path
+  std::string file( const std::string& fullpath )
+  {
+    size_t dotpos = fullpath.find_last_of( '.' );
+    size_t slashpos = fullpath.find_last_of( '/' ) + 1;
+
+    if ( std::string::npos == dotpos ) {
+      return fullpath.substr( slashpos );
+    }
+
+    return fullpath.substr( slashpos, dotpos - slashpos );
+  }
+
 };
