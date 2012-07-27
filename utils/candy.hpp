@@ -98,7 +98,7 @@ public:
 // | Inferior (MIN)
 // +--------------------------------------------------------------------------------
 template <typename numeric>
-inline numeric MAX( const numeric& n, const numeric& m )
+inline numeric TEHMAX( const numeric& n, const numeric& m )
 {
   return ( n > m ) ? n : m;
 }
@@ -112,11 +112,11 @@ inline numeric SUP( const numeric& n, const numeric& m )
 template <typename Head, typename... Tail>
 inline Head SUP( const Head& head, const Tail&... tail )
 {
-  return MAX( head, SUP(tail...) );
+  return THEMAX( head, SUP(tail...) );
 }
 
 template <typename numeric>
-inline numeric MIN( const numeric& n, const numeric& m )
+inline numeric THEMIN( const numeric& n, const numeric& m )
 {
   return ( n < m ) ? n : m;
 }
@@ -130,7 +130,7 @@ inline numeric INF( const numeric& n, const numeric& m )
 template <typename Head, typename... Tail>
 inline Head INF( const Head& head, const Tail&... tail )
 {
-  return MIN( head, INF(tail...) );
+  return THEMIN( head, INF(tail...) );
 }
 
 
