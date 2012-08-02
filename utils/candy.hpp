@@ -8,6 +8,7 @@
 
 #pragma once
 #include <vector>
+#include <type_traits>
 
 // +--------------------------------------------------------------------------------
 // | Get number of variadic function parameters
@@ -132,6 +133,12 @@ inline Head INF( const Head& head, const Tail&... tail )
 {
   return THEMIN( head, INF(tail...) );
 }
+
+
+// +--------------------------------------------------------------------------------
+// | Padding for static overloading
+// +--------------------------------------------------------------------------------
+#define ENABLE_IF(x) typename std::enable_if<x>::type __attribute__((__unused__)) *padding=nullptr
 
 
 
