@@ -15,6 +15,8 @@
 #include <cstdlib>
 #include <string>
 #include <string.h>
+#include <iostream>
+#include <fstream>
 #include "MacroTool.hpp"
 
 
@@ -152,7 +154,16 @@ inline void FscanfCheck( int line, const char *file, FILE *in, const char* forma
   
 
 
-
+bool probeFile( const std::string &filename )
+{
+  std::ifstream testfile( filename, std::ifstream::in );
+  if ( testfile.good() ) {
+    testfile.close();
+    return true;
+  }
+  testfile.close();
+  return false;
+}
 
 
 
