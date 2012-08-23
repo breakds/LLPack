@@ -36,6 +36,28 @@ namespace sorting {
     }
   };
 
+  template <typename valueType>
+  inline void insert_sort( const vector<valueType>& values, vector<int> &indices, bool ascending=false )
+  {
+    /*
+     * This is an implementation of insert sort.
+     * Sort is performed in-place on indices, where the user can provide an initialized
+     * order in indices which may significantly reduce the time consumption (when it is already
+     * substantially sorted).
+     */
+    assert( values.size() == indices.size() );
+    for ( int i=1, end=static_cast<int>( indices.size() ); i<end; i++ ) {
+      int tmp = indices[i];
+      int hole = i;
+      while ( hole>0 && values[indices[hole-1]] < values[tmp] ) {
+        indices[hole] = indices[hole-1];
+        hole--;
+      }
+      indices[hole] = tmp;
+    }
+
+    if ( ascending ) nreverse( indices );
+  }
   
   template<typename valueType>
   inline vector<int> index_sort( const vector<valueType>& values, bool ascending=false )
@@ -83,15 +105,17 @@ namespace sorting {
       index[r] = index[q];
       index[q] = tmp;
 
-      if ( q-r>1 ) stack.push_back( make_pair( r+1, q ) );
-      if ( r-p>1 ) stack.push_back( make_pair( p, r-1 ) );
+      if ( q-r>41 ) stack.push_back( make_pair( r+1, q ) );
+      if ( r-p>41 ) stack.push_back( make_pair( p, r-1 ) );
     }
+    
+    insert_sort( values, index );
 
     // if ascending then do reverse
     if ( ascending ) {
       nreverse( index );
     }
-    
+
     return index;
   }
 
@@ -148,7 +172,6 @@ namespace sorting {
       if ( r-p>1 ) stack.push_back( make_pair( p, r-1 ) );
     }
 
-    // if ascending then do reverse
     return index;
   }
 

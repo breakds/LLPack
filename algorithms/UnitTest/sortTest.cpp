@@ -9,28 +9,46 @@
 #include <memory>
 #include <functional>
 #include "../sort.hpp"
+#include "../../utils/time.hpp"
 
 
 using std::vector;
 
 int main() 
 {
-  int n = 100;
+  int n = 10000;
   srand( time( NULL ) );
   vector<int> vals;
   vals.resize(n);
-  for ( int& item : vals ) item = rand() % 1000;
-  function<bool(const int&, const int&)> compare = [](const int& a, const int& b) -> bool {
-    return a > b;
-  };
-  vector<int> ind = std::move( sorting::index_sort( vals, compare ) );
-  for ( int& item : ind ) {
-    printf( "%d\n", vals[item] );
-  }
 
-  vector<int> c( {5,6,3,4,7,8,1,9,2} );
+
+  double elapsed = 0.00;
+  vector<int> ind;
+  ind.resize(n);
+
+  for ( int iter=0; iter<2000; iter++ ) {
   
+    for ( int i=0; i<n; i++ ) {
+      vals[i] = rand() % 7778881;
+    }
+
+    timer::tic();
+    ind = std::move( sorting::index_sort( vals ) );
+    elapsed += timer::utoc();
+  }
+  
+  printf( "time consumption: %.3lf\n", elapsed );
+
+  /*
+  for ( int i=0; i<n; i++ ) {
+    printf( "%d\n", vals[ind[i]] );
+  }
+  */
+  
+  /*
+  vector<int> c( {5,6,3,4,7,8,1,9,2} );
   printf( "median is %d\n", sorting::median( c ) );
+  */
   
   return 0;
 }
