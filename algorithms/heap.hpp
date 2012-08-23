@@ -32,9 +32,9 @@ private: // ========== For Commom part ==========
   inline void maxfix()
   {
     if ( len <= 1 ) return;
-    uint i = 1;
-    uint j = 0;
-    uint maxp = 0;
+    int i = 1;
+    int j = 0;
+    int maxp = 0;
 
 
     do {
