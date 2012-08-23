@@ -14,10 +14,12 @@
 #include <cstdarg>
 #include <cstdlib>
 #include <string>
+#include <vector>
 #include <string.h>
 #include <iostream>
 #include <fstream>
 #include "MacroTool.hpp"
+#include "SafeOP.hpp"
 
 
 // Formatted String, which is thread-safe
@@ -150,8 +152,23 @@ inline void FscanfCheck( int line, const char *file, FILE *in, const char* forma
 #define END_WITH(fp)                            \
   fclose(fp);                                   \
   }
-                                                
-  
+
+
+// Read all the lines into a std::vector<std::string>
+inline std::vector<std::string> readlines( const std::string& filename )
+{
+  std::vector<std::string> strs;
+  WITH_OPEN( in, filename.c_str(), "r" );
+  size_t n = 1024;
+  char *buffer = new char[n];
+  while ( -1 != getline( &buffer, &n, in ) ) {
+    buffer[strlen(buffer)-1] = 0;
+    strs.push_back( std::string( buffer ) );
+  }
+  DeleteToNullWithTestArray( buffer );
+  END_WITH( in );
+  return strs;
+}
 
 
 bool probeFile( const std::string &filename )

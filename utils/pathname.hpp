@@ -19,7 +19,7 @@ namespace path
   {
     std::vector<std::string> tmp;
     tmp.resize( filelist.size() );
-    for ( int i=0; i<filelist.size(); i++ ) {
+    for ( int i=0, end=static_cast<int>( filelist.size() ); i<end; i++ ) {
       tmp[i] = folder + "/" + static_cast<std::string>( filelist[i] ) + postfix;
     }
     return tmp;
