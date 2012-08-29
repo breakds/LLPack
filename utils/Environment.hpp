@@ -17,9 +17,21 @@ namespace EnvironmentVariable
 {
   LispFormParser env;
 
+  void InitializeEnvironment( int argc, char **argv, bool summary=false )
+  {
+    if ( argc < 2 ) {
+      Error( "Missing configuration file in options." );
+      exit( -1 );
+    }
+    env.parse( argv[1] );
+    if ( summary ) {
+      printf( "--------------- Summary of Environment Variables ---------------\n" );
+      env.Summary();
+      printf( "----------------------------------------------------------------\n\n" );
+    }
+  }
 
   // signature injection
-  
   namespace {
     inline void seal_iter( FILE *out, const char* name )
     {
