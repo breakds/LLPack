@@ -1,25 +1,28 @@
 #ifndef DISJOINT_SET_HPP
 #define DISJOINT_SET_HPP
 
+#include <cstdio>
+#include <cstring>
 #include "../utils/SafeOP.hpp"
+
 
 #define DISJOINT_SET_RECURSIVE_UPPER_BOUND 50
 
 class DisjointSet {
   int *pre;
-  uint *num;
-  uint *tmp_stack;
+  int *num;
+  int *tmp_stack;
 
-  inline uint find_rec( const uint x ) {
+  inline int find_rec( const int x ) {
     if ( -1 == pre[x] ) {
       return x;
     }
-    uint i = find( pre[x] );
+    int i = find( pre[x] );
     pre[x] = i;
     return i;
   }
 
-  inline uint find_stack( const uint x ) {
+  inline int find_stack( const int x ) {
     int top = -1;
     int i = x;
     while ( pre[i] != -1 ) {
@@ -34,8 +37,8 @@ class DisjointSet {
 
 
 public:
-  uint size;
-  uint capacity;
+  int size;
+  int capacity;
 
   DisjointSet() {
     size = 0;
@@ -45,17 +48,17 @@ public:
     tmp_stack = NULL;
   }
 
-  DisjointSet( const uint s ) {
+  DisjointSet( const int s ) {
     capacity = s + 2;
     size = s;
     pre = new int[capacity];
-    num = new uint[capacity];
-    tmp_stack = new uint[capacity];
-    for ( uint i=0; i<size; i++ ) {
+    num = new int[capacity];
+    tmp_stack = new int[capacity];
+    for ( int i=0; i<size; i++ ) {
       pre[i] = -1;
       num[i] = 1;
     }
-    memset( tmp_stack, 0, sizeof(uint) * capacity );
+    memset( tmp_stack, 0, sizeof(int) * capacity );
   }
   
   inline void ClearData() {
@@ -70,7 +73,7 @@ public:
     ClearData();
   }
 
-  inline void Resize ( const uint s ) {
+  inline void Resize ( const int s ) {
     if ( s < capacity ) {
       size = s;
     } else {
@@ -79,20 +82,20 @@ public:
       DeleteToNullWithTestArray( pre );
       pre = new int[capacity];
       DeleteToNullWithTestArray( num );
-      num = new uint[capacity];
+      num = new int[capacity];
       DeleteToNullWithTestArray( tmp_stack );
-      tmp_stack = new uint[capacity];
+      tmp_stack = new int[capacity];
     }
-    for ( uint i=0; i<size; i++ ) {
+    for ( int i=0; i<size; i++ ) {
       pre[i] = -1;
       num[i] = 1;
     }
-    memset( tmp_stack, 0, sizeof(uint) * capacity );
+    memset( tmp_stack, 0, sizeof(int) * capacity );
   }
 
 
 
-  inline uint find( const uint x ) {
+  inline int find( const int x ) {
     if ( size < DISJOINT_SET_RECURSIVE_UPPER_BOUND ) {
       return find_rec( x ) ;
     } else {
@@ -100,9 +103,9 @@ public:
     }
   }
 
-  inline void merge( const uint x, const uint y ) {
-    uint x1 = find( x );
-    uint y1 = find( y );
+  inline void merge( const int x, const int y ) {
+    int x1 = find( x );
+    int y1 = find( y );
     if ( x1 != y1 ) {
       if ( num[x1] > num[y1] ) {
         pre[y1] = x1;
