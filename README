@@ -1,3 +1,5 @@
 LLPack: Low Level Pacakge by BreakDS
 
 Functions and Utilities in this package DO NOT depend on any other library except for that comes with GCC.
+
+Documentation can be found http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start.
