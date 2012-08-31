@@ -1,22 +1,39 @@
-#include <cstdlib>
+#include <string>
 #include <cstdio>
-#include "../heap.hpp"
+#include "LLPack/algorithms/heap.hpp"
 
 
 int main() {
   
-  srand(103);
+  // Create the heap, non-fixed
+  heap<int,std::string,false> gradeRanker;
 
-  heap<int,int> h(10);
+  // Check whether the heap is empty.
+  if ( gradeRanker.empty() ) {
+    printf( "empty\n" );
+  } else {
+    printf( "not empty\n" );
+  }
 
-  for ( int i=0; i<800; i++ ) {
-    h.add( rand() % 1000, i );
+  // Add grade/name pairs into the heap
+  gradeRanker.add( 65, "Tom" );
+
+  // Check whether the heap is empty.
+  if ( gradeRanker.empty() ) {
+    printf( "empty\n" );
+  } else {
+    printf( "not empty\n" );
   }
   
-  while ( !h.empty() ) {
-    printf( "%d\n", h(0) );
-    h.pop();
+  // reset the heap
+  gradeRanker.reset();
+
+  // Check whether the heap is empty.
+  if ( gradeRanker.empty() ) {
+    printf( "empty\n" );
+  } else {
+    printf( "not empty\n" );
   }
-  
+
   return 0;
 }

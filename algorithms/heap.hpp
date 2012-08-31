@@ -167,7 +167,7 @@ public: // ========== For non-fixed size heap ==========
   }
 
   template <bool T = fixed>
-  inline void add( const keyType &key, dataType &datum, ENABLE_IF(!T) )
+  inline void add( const keyType &key, dataType &&datum, ENABLE_IF(!T) )
   {
     if ( 0 == len ) {
       if ( keys.size() < 2 ) {
@@ -177,8 +177,8 @@ public: // ========== For non-fixed size heap ==========
 	data.resize(2);
       }
     } else {
-      if ( static_cast<int>( key.size() ) < len + 2 ) {
-	data.push_back( key );
+      if ( static_cast<int>( keys.size() ) < len + 2 ) {
+	keys.push_back( key );
 	data.push_back( std::move( std::unique_ptr<dataType>( nullptr ) ) );
       }
     }
