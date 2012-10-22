@@ -7,7 +7,7 @@
 
 #pragma once
 
-
+#include <cassert>
 #include <vector>
 
 
@@ -54,6 +54,13 @@ public:
     len = other.len;
     head = other.len;
     tail = other.len;
+  }
+
+  void clear()
+  {
+    len = 0;
+    head = 0;
+    tail = 0;
   }
 
 
@@ -111,7 +118,7 @@ public:
     }
     return false;
   }
-
+  
   bool pop_front()
   {
     if ( len > 0 ) {
@@ -122,7 +129,7 @@ public:
     return false;
   }
   
-  valueType& operator[]( int index )
+  inline valueType& operator[]( int index )
   {
     if ( head + index >= static_cast<int>( container.size() ) ) {
       return container[head + index - static_cast<int>( container.size() )];
@@ -130,7 +137,7 @@ public:
     return container[head+index];
   }
 
-  const valueType& operator()( int index )
+  inline const valueType& operator()( int index )
   {
     if ( head + index >= static_cast<int>( container.size() ) ) {
       return container[head + index - static_cast<int>( container.size() )];
@@ -138,6 +145,20 @@ public:
     return container[head+index];
   }
 
+  inline const valueType& back()
+  {
+    assert( size > 0 );
+    int t = tail;
+    prev(t);
+    return container[t];
+  }
+
+  inline const valueType& front()
+  {
+    assert( size > 0 );
+    return container[head];
+  }
+  
   inline bool empty() const
   {
     return ( 0 == len );

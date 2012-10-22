@@ -155,7 +155,18 @@ public: // ========== For fixed size heap ==========
       push( key, std::move( datum ) );
     }
   }
-  
+
+  template <bool T = fixed>
+  inline void add( const keyType &key, dataType &&datum, ENABLE_IF(T) )
+  {
+    if ( len < size ) {
+      push( key, std::move( datum ) );
+    } else if ( key < keys[1] ) {
+      pop();
+      push( key, std::move( datum ) );
+    }
+  }
+
 public: // ========== For non-fixed size heap ==========
 
   // Constructor for non-fixed size heap
@@ -164,6 +175,25 @@ public: // ========== For non-fixed size heap ==========
   {
     keys.clear();
     data.clear();
+  }
+
+  template <bool T = fixed>
+  inline void add( const keyType &key, dataType &datum, ENABLE_IF(!T) )
+  {
+    if ( 0 == len ) {
+      if ( keys.size() < 2 ) {
+	keys.resize(2);
+      }
+      if ( data.size() < 2 ) {
+	data.resize(2);
+      }
+    } else {
+      if ( static_cast<int>( keys.size() ) < len + 2 ) {
+	keys.push_back( key );
+	data.push_back( std::move( std::unique_ptr<dataType>( nullptr ) ) );
+      }
+    }
+    push( key, std::move( datum ) );
   }
 
   template <bool T = fixed>
