@@ -164,6 +164,14 @@ public:
     return ( 0 == len );
   }
 
+  inline bool full() const
+  {
+    if ( static_cast<int>( container.size() ) == len ) {
+      return true;
+    }
+    return false;
+  }
+
   inline int size() const
   {
     return len;
