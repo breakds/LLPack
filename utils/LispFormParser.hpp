@@ -410,6 +410,8 @@ private:
       }
     }
   };
+
+  
   
   map< string, Lisp > options;
   bool loaded;
@@ -469,6 +471,42 @@ public:
     // Exception: Not Found
     Error( "LispFormParser: item \"%s\" not found.", query.c_str() );
     exit(-1);
+  }
+
+  /* ---------- iterator ---------- */
+  class iterator
+  {
+  private:
+    std::map<string,Lisp>::const_iterator iter;
+
+  public:
+    iterator( std::map<string,Lisp>::const_iterator i ) : iter(i) {}
+    
+    bool operator!=( const iterator& other ) const
+    {
+      return iter != other.iter;
+    }
+
+    const std::string& operator*() const
+    {
+      return iter->first;
+    }
+
+    const iterator& operator++()
+    {
+      iter++;
+      return (*this);
+    }
+  };
+
+  iterator begin() const
+  {
+    return iterator( options.begin() );
+  }
+
+  iterator end() const
+  {
+    return iterator( options.end() );
   }
   
 };

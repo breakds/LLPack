@@ -41,6 +41,32 @@ namespace rndgen
     }
     return result;
   }
+  
+
+  inline int randperm( const int n, const int k, int* &result )
+  {
+    if ( n <= k ) {
+      result = new int[n];
+      for ( int i=0; i<n; i++ ) {
+        result[i] = i;
+      }
+      return n;
+    } else {
+      result = new int[k];
+      for ( int i=0; i<k; i++ ) {
+        result[i] = i;
+      }
+      for ( int i=k; i<n; i++ ) {
+        int rnd = rand() % (i+1);
+        if ( rnd < k ) {
+          rnd = rand() % k;
+          result[rnd] = i;
+        }
+      }
+      return k;
+    }
+  }
+
 
   
   // Sample k elements from an array / vector, with no replacement
