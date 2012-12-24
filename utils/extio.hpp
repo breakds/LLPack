@@ -182,6 +182,30 @@ bool probeFile( const std::string &filename )
   return false;
 }
 
+/* ---------- progress ---------- */
+inline void progress( double pg, std::string info )
+{
+
+  int num = static_cast<int>( pg * 100 );
+
+  if ( num > 100 ) num = 100;
+
+  for ( int i=0; i<200; i++ ) printf( "\b" );
+  printf( "[" );
+  for ( int i=0; i<num; i++ ) printf( "=" );
+  for ( int i=num; i<100; i++ ) printf( " " );
+  printf( "] " );
+  printf( "%c[%d;%dm[ %3d%%] %c[%dm", 27, 0, 32, num, 27, 0 );
+
+  printf( " ( %s )", info.c_str() );
+  fflush( stdout );
+}
+
+inline void progress( int a, int b, std::string info )
+{
+  progress( static_cast<double>(a) / b, info );
+}
+
 
 
 #endif
