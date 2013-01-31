@@ -15,6 +15,16 @@ Low Level Package (LLPack) is a C++ utility library built on top of the C++ Stan
 + breakds@gmail.com
 + https://github.com/breakds
 
+## Quick Start
+
+All components come in the form of [header files](http://en.wikipedia.org/wiki/Header_file) (.hpp/.h). To use them, 
+just include the corresponding header files into your program. Please make sure that the include path is
+correctly configured so that LLPack can be located by the compiler.
+
+
+Below is a step-by-step tutorial that creates a sample c++ program with using LLPack. It demonstrates how to 
+use LLPack (
+
 ## Lisence
 
 This is free and unencumbered software released into the public domain.
