@@ -247,7 +247,7 @@ public:
     return (*this);
   }
 
-  // copy assignment
+  // move assignment
   inline const bitset& operator=( bitset&& other )
   {
     n = other.n;

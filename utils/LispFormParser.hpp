@@ -143,7 +143,7 @@ private:
 	  name += ch;
 	  ch = static_cast<char>( getc( stream ) );
 	}
-
+        
 	if ( EOF == ch || ')' == ch ) {
 	  indicator = false;
 	} else {
