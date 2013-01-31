@@ -23,9 +23,84 @@ correctly configured so that LLPack can be located by the compiler.
 
 
 Below is a step-by-step tutorial that creates a sample c++ program with using LLPack. It demonstrates how to 
-use LLPack fixed size heap to maintain a student list with top 5 highest grade.
+use LLPack fixed size heap to maintain a list of top 3 closest city to Cornell University.
+
+### Step 1
+
+First, download the library and put it somewhere. Let's say the directory LLPack is under the path **/some/where/**.
+
+### Step 2
 
 
+Create the test.cpp file, as below:
+
+```c++
+#include <iostream>
+#include <string>
+#include "LLPack/algorithms/heap.hpp"
+
+
+int main() {
+
+  int K = 3; // we want top K closest cities
+  
+  // Create the ranker (fixed K-size heap)
+  heap<int, std::string> ranker(K);
+
+
+  // Adding the (Grade, Name) pairs
+  ranker.add( 2, "Ithaca" );
+  ranker.add( 814, "Madison" );
+  ranker.add( 332, "Boston" );
+  ranker.add( 1007, "Ames" );
+  ranker.add( 876, "St. Louis" );
+
+  // print out top K cities
+  std::cout << "---------- Closest Cities ----------\n"; 
+  for ( int i=0; i<K; i++ ) {
+    std::cout << ranker[i] << "\n";
+  }
+  std::cout << "\n";
+
+  // Adding a new city
+  ranker.add( 222, "New York" );
+  
+  
+  // print out the updated top K cities
+  std::cout << "---------- Updated Closest Cities ----------\n"; 
+  for ( int i=0; i<K; i++ ) {
+    std::cout << ranker[i] << "\n";
+  }
+  std::cout << "\n";
+  
+  return 0;
+}
+```
+
+### Step 3
+
+Compile with (Assuming GCC)
+
+```bash
+g++ test.cpp -I/some/where -o test -std=c++0x
+```
+
+Note that c++0x is necessary since c++11 syntax is extensively used in LLPack.
+
+### Step 4
+
+Run the compiled program, and we will get:
+```bash
+---------- Closest Cities ----------
+Madison
+Ithaca
+Boston
+
+---------- Updated Closest Cities ----------
+Boston
+Ithaca
+New York
+```
 
 ## Lisence
 
