@@ -106,7 +106,7 @@ New York
 
 ## Documentation
 
-The documentation of LLPack can be found [[http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start|here]].
+The documentation of LLPack can be found [here](http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start).
 
 ## Lisence
 
