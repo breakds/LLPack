@@ -103,6 +103,11 @@ Ithaca
 New York
 ```
 
+
+## Documentation
+
+The documentation of LLPack can be found [[http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start|here]].
+
 ## Lisence
 
 This is free and unencumbered software released into the public domain.
