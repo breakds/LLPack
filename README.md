@@ -4,7 +4,8 @@
 
 Low Level Package (LLPack) is a C++ utility library built on top of the C++ Standard Library STL (and only STL). This project originates from my research project in Computer Vision, but is rather general-purpose. It is consists two components:
 
-* [Utilities](Utilities): Macro syntax sugars, I/O Wrappers, timer, configuration file parser, etc.
+* [Lisp Parser](http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start#lisp_configuration_file_parser): An S-expression format configuration file parser.
+* [Utilities](http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start#untilities): Macro syntax sugars, I/O Wrappers, timer, configuration file parser, etc.
 * [Algorithms](http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start#algorithms_and_data_structures): Algorithms (sorting, random generator, etc) and Data Structures (heap, disjoint set, etc).
 
 
