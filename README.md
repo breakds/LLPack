@@ -23,7 +23,9 @@ correctly configured so that LLPack can be located by the compiler.
 
 
 Below is a step-by-step tutorial that creates a sample c++ program with using LLPack. It demonstrates how to 
-use LLPack (
+use LLPack fixed size heap to maintain a student list with top 5 highest grade.
+
+
 
 ## Lisence
 
