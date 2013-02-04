@@ -1,4 +1,4 @@
-# [Low Level Package for C++](http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start)
+# [Low Level Package for C++](http://breakds.github.com/LLPack)
 
 ## Introduction
 
