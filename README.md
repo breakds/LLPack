@@ -14,12 +14,17 @@ The library is consists two components:
 * [Algorithms](http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start#algorithms_and_data_structures): Algorithms (sorting, random generator, etc) and Data Structures (heap, disjoint set, etc).
 
 
+
 ## Author
 
 **BreakDS**
 
 + breakds@gmail.com
 + https://github.com/breakds
+
+## Documentation
+
+The documentation of LLPack can be found [here](http://www.azraelplanet.org/wikipages/doku.php?id=projects:llpack:start).
 
 ## Quick Start
 
