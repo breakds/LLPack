@@ -171,7 +171,7 @@ inline std::vector<std::string> readlines( const std::string& filename )
 }
 
 
-bool probeFile( const std::string &filename )
+bool probeFile( const std::string filename )
 {
   std::ifstream testfile( filename, std::ifstream::in );
   if ( testfile.good() ) {
