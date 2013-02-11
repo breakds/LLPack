@@ -110,6 +110,16 @@ namespace rndgen
     }
     return result;
   }
-  
+
+  // generate an index array from 0 to n
+  inline std::vector<int> seq( int n )
+  {
+    std::vector<int> res( n );
+    for ( int i=0; i<n; i++ ) {
+      res[i] = i;
+    }
+    return res;
+  }
+
 };
 
