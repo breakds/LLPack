@@ -103,7 +103,7 @@ public:
 template <typename arrayType>
 class ElementOf
 {
-  arrayType a;
+  static arrayType a;
 public:
   typedef typename std::remove_reference<decltype(a[0])>::type type;
 };
