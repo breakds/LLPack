@@ -2,11 +2,13 @@
  * File: list.hpp
  * Description: Implementation of list objects, including 
  *              1) circular list
+ *              2) sub-list wrapper
  * by BreakDS, @ University of Wisconsin-Madison, Fri Oct 19 08:33:14 CDT 2012
  *********************************************************************************/
 
 #pragma once
 
+#include "../utils/candy.hpp"
 #include <cassert>
 #include <vector>
 
@@ -177,3 +179,88 @@ public:
     return len;
   }
 };
+
+
+template <typename arrayType=std::vector<int> >
+class SubListView
+{
+public:
+  typedef typename ElementOf<arrayType>::type dataType;
+private:
+  const arrayType& parent;
+  std::vector<int> idx;
+  
+public:
+
+  SubListView( const arrayType& array, const std::vector<int>& subidx ) : parent(array)
+  {
+    idx = subidx;
+  }
+
+  SubListView( SubListView<arrayType>&& other ) : parent(other.parent)
+  {
+    idx.swap( other.idx );
+  }
+
+  /* ---------- accessors ---------- */
+  inline const dataType operator[]( int index )
+  {
+    return parent[idx[index]];
+  }
+
+  inline int size() const
+  {
+    return static_cast<int>( idx.size() );
+  }
+
+  /* ---------- iterator ---------- */
+  class iterator
+  {
+  private:
+    const arrayType& parent;
+    std::vector<int>::const_iterator iter;
+  public:
+    iterator( const arrayType& _parent, std::vector<int>::const_iterator _iter )
+      : parent(_parent), iter(_iter) {}
+
+    bool operator!=( const iterator& other ) const
+    {
+      return iter != other.iter;
+    }
+
+    const dataType& operator*() const
+    {
+      return parent[*iter];
+    }
+
+    const iterator& operator++()
+    {
+      iter++;
+      return (*this);
+    }
+  };
+
+  iterator begin() const
+  {
+    return iterator( parent, idx.begin() );
+  }
+
+  iterator end() const
+  {
+    return iterator( parent, idx.end() );
+  }
+
+};
+
+class SubList
+{
+public:
+  template <typename T>
+  static SubListView<T> create( const T& array, const std::vector<int>& subidx )
+  {
+    return SubListView<T>( array, subidx );
+  }
+};
+
+
+
