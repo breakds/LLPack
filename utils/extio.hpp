@@ -182,6 +182,25 @@ bool probeFile( const std::string filename )
   return false;
 }
 
+/* ---------- Array I/O ---------- */
+template <typename dataType>
+inline void writeVector( FILE *out, const std::vector<dataType>& vec )
+{
+  int len = static_cast<int>( vec.size() );
+  fwrite( &len, sizeof(int), 1, out );
+  fwrite( &vec[0], sizeof(dataType), len, out );
+}
+
+template <typename dataType>
+inline void readVector( FILE *in, std::vector<dataType>& vec )
+{
+  int len = 0;
+  fread( &len, sizeof(int), 1, in );
+  vec.resize(len);
+  fread( &vec[0], sizeof(dataType), len, in );
+}
+
+
 /* ---------- progress ---------- */
 inline void progress( double pg, std::string info )
 {
