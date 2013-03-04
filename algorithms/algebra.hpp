@@ -94,6 +94,17 @@ namespace algebra
   }
 
   template <typename dataType>
+  inline double norm_l1( const dataType* vec, int dim )
+  {
+    double re = 0;
+    for ( int i=0; i<dim; i++ ) {
+      re += std::fabs( vec[i] );
+    }
+    return re;
+  }
+
+
+  template <typename dataType>
   inline double norm2( const dataType* vec, int dim )
   {
     double re = 0;
@@ -115,6 +126,19 @@ namespace algebra
       re += tmp * tmp;
     }
     return sqrt(re);
+  }
+  
+  template <typename dataType>
+  inline double dist2( const dataType* vec0, const dataType *vec1, int dim )
+  {
+    const dataType *vp0 = vec0;
+    const dataType *vp1 = vec1;
+    double re = 0;
+    for ( int i=0; i<dim; i++ ) {
+      typename Generalized<dataType>::type tmp = *(vp0++) - *(vp1++);
+      re += tmp * tmp;
+    }
+    return re;
   }
 
   
