@@ -48,6 +48,26 @@ inline void Signal_Error( int line, const char* file, const char* format, ... )
   fprintf( stderr, "%c[%dm\nat %s:%d\n", 27, 0, file, line );
 }
 
+
+
+inline void DebugInfo( const char* format, ... ) 
+{
+  va_list argptr;
+  fprintf( stderr, "%c[%d;%dm[DEBUG] %c[%dm", 27,1,34,27,0 );
+  va_start( argptr, format );
+  vfprintf( stderr, format, argptr );
+  va_end( argptr );
+  fprintf( stderr, "\n" );
+}
+
+
+inline void ResumeOnRet()
+{
+  char ch;
+  scanf( "%c", &ch );
+}
+
+
 inline int Warning( const char* format, ... ) 
 {
 #if 1 == DISABLE_LLPACK_WARNING
@@ -188,7 +208,9 @@ inline void writeVector( FILE *out, const std::vector<dataType>& vec )
 {
   int len = static_cast<int>( vec.size() );
   fwrite( &len, sizeof(int), 1, out );
-  fwrite( &vec[0], sizeof(dataType), len, out );
+  if ( 0 < len ) {
+    fwrite( &vec[0], sizeof(dataType), len, out );
+  }
 }
 
 template <typename dataType>
@@ -197,7 +219,9 @@ inline void readVector( FILE *in, std::vector<dataType>& vec )
   int len = 0;
   fread( &len, sizeof(int), 1, in );
   vec.resize(len);
-  fread( &vec[0], sizeof(dataType), len, in );
+  if ( 0 < len ) {
+    fread( &vec[0], sizeof(dataType), len, in );
+  }
 }
 
 

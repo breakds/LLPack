@@ -9,9 +9,12 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <random>
+#include "algebra.hpp"
 #include "../utils/candy.hpp"
 #include "../utils/extio.hpp"
 
+using algebra::norm_l2;
 
 namespace rndgen
 {
@@ -121,5 +124,32 @@ namespace rndgen
     return res;
   }
 
+  // random unit vector
+  template <typename dataType, typename rngType = std::mt19937>
+  inline std::vector<dataType> rnd_unit_vec( int dim, rngType& rng )
+  {
+    static std::normal_distribution<dataType> ndist( 0.0, 1.0 );
+    std::vector<dataType> vec( dim );
+    for ( auto& ele : vec ) {
+      ele = ndist( rng );
+    }
+    double len = norm_l2( &vec[0], dim );
+    for ( auto& ele : vec ) {
+      ele /= len;
+    }
+    return vec;
+  }
+
+  template <typename dataType, typename rngType = std::mt19937>
+  inline std::vector<dataType> rnd_uniform_real( int dim, dataType lower, dataType upper, rngType& rng )
+  {
+    std::uniform_real_distribution<dataType> udist( lower, upper );
+    std::vector<dataType> vec( dim );
+    for ( auto& ele : vec ) {
+      ele = udist( rng );
+    }
+    return vec;
+  }
+  
 };
 
