@@ -58,7 +58,7 @@ namespace algebra
 
 
   template<typename dataType>
-  inline void copy( dataType *dst, dataType *src, int dim )
+  inline void copy( dataType *dst, const dataType *src, int dim )
   {
     memcpy( dst, src, sizeof(dataType) * dim );
   }
