@@ -297,7 +297,53 @@ namespace algebra
     }
     printf( ")\n" );
   }
-  
+
+  /* print vector with component emphasized */
+  void emphasizeDim( const double *x, int dim, int comp ) {
+    printf( "( " );
+    for ( int i=0; i<dim; i++ ) {
+      if ( i != comp ) {
+        printf( "%.4lf ", x[i] );
+      } else {
+        printf( "[%.4lf] ", x[i] );
+      }
+    }
+    printf( ")\n" );
+  }
+  void emphasizeDim( const float *x, int dim, int comp ) {
+    printf( "( " );
+    for ( int i=0; i<dim; i++ ) {
+      if ( i != comp ) {
+        printf( "%.4f ", x[i] );
+      } else {
+        printf( "[%.4f] ", x[i] );
+      }
+    }
+    printf( ")\n" );
+  }
+  void emphasizeDim( const int *x, int dim, int comp ) {
+    printf( "( " );
+    for ( int i=0; i<dim; i++ ) {
+      if ( i != comp ) {
+        printf( "%d ", x[i] );
+      } else {
+        printf( "[%d] ", x[i] );
+      }
+    }
+    printf( ")\n" );
+  }
+  void emphasizeDim( const unsigned char *x, int dim, int comp ) {
+    printf( "( " );
+    for ( int i=0; i<dim; i++ ) {
+      if ( i!= comp ) {
+        printf( "%hhu ", x[i] );
+      } else {
+        printf( "[%hhu] ", x[i] );
+      }
+    }
+    printf( ")\n" );
+  }
+
   
   /* sum the vector */
   template <typename dataType>
