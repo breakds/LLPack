@@ -196,7 +196,7 @@ public:
   {}
 
   /* ---------- accessors ---------- */
-  inline const dataType operator[]( int index )
+  inline const dataType operator[]( int index ) const
   {
     return parent[idx[index]];
   }
