@@ -188,19 +188,12 @@ public:
   typedef typename ElementOf<arrayType>::type dataType;
 private:
   const arrayType& parent;
-  std::vector<int> idx;
+  const std::vector<int>& idx;
   
 public:
 
-  SubListView( const arrayType& array, const std::vector<int>& subidx ) : parent(array)
-  {
-    idx = subidx;
-  }
-
-  SubListView( SubListView<arrayType>&& other ) : parent(other.parent)
-  {
-    idx.swap( other.idx );
-  }
+  SubListView( const arrayType& array, const std::vector<int>& subidx ) : parent(array), idx(subidx)
+  {}
 
   /* ---------- accessors ---------- */
   inline const dataType operator[]( int index )
@@ -261,6 +254,7 @@ public:
     return SubListView<T>( array, subidx );
   }
 };
+
 
 
 
