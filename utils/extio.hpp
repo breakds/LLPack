@@ -249,6 +249,35 @@ inline void progress( int a, int b, std::string info )
   progress( static_cast<double>(a) / b, info );
 }
 
+class ProgressBar
+{
+private:
+  int N;
+  int m;
+
+public:
+
+  ProgressBar() : N(0), m(0) {}
+
+  explicit ProgressBar( int N_ ) : N ( N_ ), m(0) {}
+
+  void reset( int N_ )
+  {
+    N = N_;
+    m = 0;
+  }
+
+  inline void update( int n, std::string info )
+  {
+    if ( n * 100 / N != m ) {
+      m = n * 100 / N;
+      progress( n, N, info );
+    }
+    if ( n == N ) {
+      printf( "\n" );
+    }
+  }
+};
 
 
 #endif
