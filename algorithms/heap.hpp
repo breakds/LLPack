@@ -195,7 +195,7 @@ public: // ========== For non-fixed size heap ==========
     }
     push( key, std::move( datum ) );
   }
-
+  
   template <bool T = fixed>
   inline void add( const keyType &key, dataType &&datum, ENABLE_IF(!T) )
   {

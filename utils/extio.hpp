@@ -233,14 +233,14 @@ inline void progress( double pg, std::string info )
 
   if ( num > 100 ) num = 100;
 
-  for ( int i=0; i<200; i++ ) printf( "\b" );
+  // for ( int i=0; i<200; i++ ) printf( "\b" );
   printf( "[" );
   for ( int i=0; i<num; i++ ) printf( "=" );
   for ( int i=num; i<100; i++ ) printf( " " );
   printf( "] " );
   printf( "%c[%d;%dm[ %3d%%] %c[%dm", 27, 0, 32, num, 27, 0 );
 
-  printf( " ( %s )", info.c_str() );
+  printf( " ( %s )\r", info.c_str() );
   fflush( stdout );
 }
 
