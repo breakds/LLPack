@@ -56,11 +56,23 @@ namespace algebra
     memset( target, 0, sizeof(dataType) * dim );
   }
 
+  template<typename dataType>
+  inline void zero( std::vector<dataType> &target, int dim )
+  {
+    memset( &target[0], 0, sizeof(dataType) * dim );
+  }
+
 
   template<typename dataType>
   inline void copy( dataType *dst, const dataType *src, int dim )
   {
     memcpy( dst, src, sizeof(dataType) * dim );
+  }
+
+  template<typename dataType>
+  inline void copy( std::vector<dataType> &dst, const std::vector<dataType> &src, size_t dim )
+  {
+    memcpy( &dst[0], &src[0], sizeof(dataType) * dim );
   }
   
 
@@ -114,6 +126,16 @@ namespace algebra
     return re;
   }
 
+  
+  template <typename dataType>
+  inline double norm2( const std::vector<dataType> &vec, size_t dim )
+  {
+    double re = 0;
+    for ( size_t i=0; i<dim; i++ ) {
+      re += vec[i] * vec[i];
+    }
+    return re;
+  }
 
   template <typename dataType>
   inline double dist_l2( const dataType* vec0, const dataType *vec1, int dim )
@@ -178,6 +200,14 @@ namespace algebra
     const dataType* vp1 = v1;
     for ( int i=0; i<dim; i++ ) *(vp0++) += wt * (*(vp1++));
   }
+
+  template <typename dataType>
+  inline void addScaledTo( std::vector<dataType> &v0, const std::vector<dataType> &v1, size_t dim, dataType wt )
+  {
+    dataType* vp0 = &v0[0];
+    const dataType* vp1 = &v1[0];
+    for ( size_t i=0; i<dim; i++ ) *(vp0++) += wt * (*(vp1++));
+  }
   
   /* add two vectors and store the result in the third parameter */
   template <typename dataType>
@@ -229,6 +259,7 @@ namespace algebra
     for ( int i=0; i<dim; i++ ) *(vp0++) -= wt * (*(vp1++));
   }
 
+  
   /* negate v0 */
   template <typename dataType>
   inline void negate( dataType *v0, int dim ) {
