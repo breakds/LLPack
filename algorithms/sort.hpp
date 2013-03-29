@@ -241,7 +241,68 @@ namespace sorting {
   }
 
 
-    // Find the kth smallest element
+  // Find the kth smallest element
+  template <typename valueType>
+  inline valueType nkth( vector<valueType>& values, const int k )
+  {
+
+    int p = 0;
+    int q = static_cast<int>( values.size() ) - 1;
+
+    if ( p == q && 0 == k ) return values[0];
+    
+    int target = k;
+    while ( p < q ) {
+      
+      int r = rand()%(q-p+1) + p;
+      int tmp = values[r];
+      values[r] = values[q];
+      values[q] = tmp;
+
+      r = p-1;
+      for ( int i=p; i<q; i++ ) {
+        if ( values[i] < values[q] ) {
+          r++;
+          tmp = values[r];
+          values[r] = values[i];
+          values[i] = tmp;
+        }
+      }
+
+      r++;
+      tmp = values[r];
+      values[r] = values[q];
+      values[q] = tmp;
+
+
+      if ( target < r - p ) {
+        q = r - 1;
+      } else if ( target > r-p ) {
+        target = target - r + p -1;
+        p = r + 1;
+      } else {
+        return values[r];
+      }
+      
+    }
+
+    // Should not reach here
+    if ( p==q ) return values[p];
+    
+    assert( false );
+    
+    return values[0];
+  }
+
+
+  template <typename valueType>
+  inline valueType nmedian( vector<valueType>& values )
+  {
+    return nkth( values, static_cast<int>( values.size() ) >> 1 );
+  }
+
+
+  // Find the kth smallest element
   template <typename valueType>
   inline int kthIndex( const vector<valueType>& values, const int k )
   {
