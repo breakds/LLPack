@@ -69,6 +69,16 @@ namespace algebra
     memcpy( dst, src, sizeof(dataType) * dim );
   }
 
+  template <typename arrayType0, typename arrayType1>
+  inline void copy( arrayType0 &dst, const arrayType1 &src, int dim )
+  {
+    static_assert( std::is_same<typename ElementOf<arrayType0>::type, typename ElementOf<arrayType1>::type>::value,
+                   "LLPack::algebra::dist_l1, element type mismatch." );
+    for ( int i=0; i<dim; i++ ) {
+      dst[i] = src[i];
+    }
+  }
+  
   template<typename dataType>
   inline void copy( std::vector<dataType> &dst, const std::vector<dataType> &src, size_t dim )
   {
@@ -148,6 +158,22 @@ namespace algebra
       re += tmp * tmp;
     }
     return sqrt(re);
+  }
+
+
+  template <typename arrayType0, typename arrayType1>
+  inline double dist_l1( const arrayType0& vec0, const arrayType1& vec1, int dim )
+  {
+    static_assert( std::is_same<typename ElementOf<arrayType0>::type, typename ElementOf<arrayType1>::type>::value,
+                   "LLPack::algebra::dist_l1, element type mismatch." );
+    double dist = 0.0;
+    for ( int i=0; i<dim; i++ ) {
+      if ( vec0[i] > vec1[i] ) 
+        dist += static_cast<double>( vec0[i] - vec1[i] );
+      else
+        dist += static_cast<double>( vec1[i] - vec0[i] );
+    }
+    return dist;
   }
   
   template <typename dataType>
