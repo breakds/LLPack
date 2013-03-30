@@ -168,14 +168,13 @@ namespace algebra
                    "LLPack::algebra::dist_l1, element type mismatch." );
     double dist = 0.0;
     for ( int i=0; i<dim; i++ ) {
-      if ( vec0[i] > vec1[i] ) 
-        dist += static_cast<double>( vec0[i] - vec1[i] );
-      else
-        dist += static_cast<double>( vec1[i] - vec0[i] );
+      dist += fabs( vec0[i] - vec1[i] );
     }
     return dist;
   }
   
+
+
   template <typename dataType>
   inline double dist2( const dataType* vec0, const dataType *vec1, int dim )
   {
