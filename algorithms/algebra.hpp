@@ -325,28 +325,44 @@ namespace algebra
 
 
   /* print vector */
-  void printVec( const double *x, int dim ) {
+  template <typename arrayType>
+  void printVec( const arrayType& x, int dim,
+                 ENABLE_IF((std::is_same<double,typename ElementOf<arrayType>::type>::value)) )
+  {
     printf( "( " );
     for ( int i=0; i<dim; i++ ) {
       printf( "%.4lf ", x[i] );
     }
     printf( ")\n" );
   }
-  void printVec( const float *x, int dim ) {
+
+
+  template <typename arrayType>
+  void printVec( const arrayType& x, int dim,
+                 ENABLE_IF((std::is_same<float,typename ElementOf<arrayType>::type>::value)) )
+  {
     printf( "( " );
     for ( int i=0; i<dim; i++ ) {
       printf( "%.4f ", x[i] );
     }
     printf( ")\n" );
   }
-  void printVec( const int *x, int dim ) {
+
+  template <typename arrayType>
+  void printVec( const arrayType& x, int dim,
+                 ENABLE_IF((std::is_same<int,typename ElementOf<arrayType>::type>::value)) )
+  {
     printf( "( " );
     for ( int i=0; i<dim; i++ ) {
       printf( "%d ", x[i] );
     }
     printf( ")\n" );
   }
-  void printVec( const unsigned char *x, int dim ) {
+  
+  template <typename arrayType>
+  void printVec( const arrayType& x, int dim,
+                 ENABLE_IF((std::is_same<unsigned char,typename ElementOf<arrayType>::type>::value)) )
+  {
     printf( "( " );
     for ( int i=0; i<dim; i++ ) {
       printf( "%hhu ", x[i] );
