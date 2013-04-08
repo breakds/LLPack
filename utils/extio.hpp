@@ -244,7 +244,7 @@ inline void progress( double pg, std::string info )
   fflush( stdout );
 }
 
-inline void progress( int a, int b, std::string info )
+inline void progress( size_t a, size_t b, std::string info )
 {
   progress( static_cast<double>(a) / b, info );
 }
@@ -252,22 +252,22 @@ inline void progress( int a, int b, std::string info )
 class ProgressBar
 {
 private:
-  int N;
-  int m;
+  size_t N;
+  size_t m;
 
 public:
 
   ProgressBar() : N(0), m(0) {}
 
-  explicit ProgressBar( int N_ ) : N ( N_ ), m(0) {}
+  explicit ProgressBar( size_t N_ ) : N ( N_ ), m(0) {}
 
-  void reset( int N_ )
+  void reset( size_t N_ )
   {
     N = N_;
     m = 0;
   }
 
-  inline void update( int n, std::string info )
+  inline void update( size_t n, std::string info )
   {
     if ( n * 100 / N != m ) {
       m = n * 100 / N;
