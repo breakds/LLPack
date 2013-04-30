@@ -21,21 +21,22 @@ namespace rndgen
 
   // Sample k elements from 0..n-1, with no replacement
   // an implementation of Reservoir Sampling Algorithm
-  inline std::vector<int> randperm( const int n, const int k )
+  template <typename dataType>
+  inline std::vector<dataType> randperm( const dataType n, const dataType k )
   {
-    std::vector<int> result;
+    std::vector<dataType> result;
     if ( n <= k ) {
       result.resize(n);
-      for ( int i=0; i<n; i++ ) {
+      for ( dataType i=0; i<n; i++ ) {
         result[i] = i;
       }
     } else {
       result.resize( k );
-      for ( int i=0; i<k; i++ ) {
+      for ( dataType i=0; i<k; i++ ) {
         result[i] = i;
       }
-      for ( int i=k; i<n; i++ ) {
-        int rnd = rand() % (i+1);
+      for ( dataType i=k; i<n; i++ ) {
+        dataType rnd = rand() % (i+1);
         if ( rnd < k ) {
           rnd = rand() % k;
           result[rnd] = i;
