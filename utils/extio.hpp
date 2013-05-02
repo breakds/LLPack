@@ -206,8 +206,8 @@ bool probeFile( const std::string filename )
 template <typename dataType>
 inline void writeVector( FILE *out, const std::vector<dataType>& vec )
 {
-  int len = static_cast<int>( vec.size() );
-  fwrite( &len, sizeof(int), 1, out );
+  size_t len = vec.size();
+  fwrite( &len, sizeof(size_t), 1, out );
   if ( 0 < len ) {
     fwrite( &vec[0], sizeof(dataType), len, out );
   }
@@ -216,9 +216,9 @@ inline void writeVector( FILE *out, const std::vector<dataType>& vec )
 template <typename dataType>
 inline void readVector( FILE *in, std::vector<dataType>& vec )
 {
-  int len = 0;
-  fread( &len, sizeof(int), 1, in );
-  vec.resize(len);
+  size_t len = 0;
+  fread( &len, sizeof(size_t), 1, in );
+  vec.resize( len );
   if ( 0 < len ) {
     fread( &vec[0], sizeof(dataType), len, in );
   }
